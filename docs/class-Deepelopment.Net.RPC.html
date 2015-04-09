@@ -112,6 +112,9 @@
 
 <span class="php-var">$client</span> = <span class="php-keyword1">new</span> RPC(
     <span class="php-quote">'JSON'</span>,
+    <span class="php-comment">// or class implementing Deepelopment\Net\RPC\Client_Interface</span>
+    <span class="php-comment">// interface:</span>
+    <span class="php-comment">// '\\My\\Namespace\\JSON',</span>
     RPC::TYPE_CLIENT,
     <span class="php-keyword1">array</span>(
         CURLOPT_SSL_VERIFYPEER =&gt; <span class="php-keyword1">FALSE</span>,

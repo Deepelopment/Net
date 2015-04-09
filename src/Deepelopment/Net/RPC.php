@@ -20,6 +20,9 @@ use RuntimeException;
  *
  * $client = new RPC(
  *     'JSON',
+ *     // or class implementing Deepelopment\Net\RPC\Client_Interface
+ *     // interface:
+ *     // '\\My\\Namespace\\JSON',
  *     RPC::TYPE_CLIENT,
  *     array(
  *         CURLOPT_SSL_VERIFYPEER => FALSE,
