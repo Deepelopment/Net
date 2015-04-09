@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface Deepelopment\Net\RPC\Client_Interface</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Deepelopment.html">
+						Deepelopment<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Deepelopment.Net.html">
+						Net<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Deepelopment.Net.RPC.html">
+						RPC<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Deepelopment.Net.RPC.Client.html">
+						Client					</a>
+
+						</li>
+							</ul></li></ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Deepelopment.Net.RPC.Client_Layer.html">Client_Layer</a></li>
+				<li><a href="class-Deepelopment.Net.RPC.Client_Layer_Net.html">Client_Layer_Net</a></li>
+				<li><a href="class-Deepelopment.Net.RPC.Layer.html">Layer</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li class="active"><a href="class-Deepelopment.Net.RPC.Client_Interface.html">Client_Interface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Deepelopment.Net.RPC.html" title="Summary of Deepelopment\Net\RPC"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface Client_Interface</h1>
+
+
+	<div class="description">
+	<p>Remote Procedure Call client layer interface,
+see <code><a href="class-Deepelopment.Net.RPC.html">Deepelopment\Net\RPC</a></code>, <code><a href="class-Deepelopment.Net.RPC.Client.JSON.html">Deepelopment\Net\RPC\Client\JSON</a></code>.</p>
+	</div>
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Deepelopment.Net.RPC.Client.JSON.html">Deepelopment\Net\RPC\Client\JSON</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Deepelopment.html">Deepelopment</a>\<a href="namespace-Deepelopment.Net.html">Net</a>\<a href="namespace-Deepelopment.Net.RPC.html">RPC</a><br>
+		<b>Package:</b> Deepelopment\Net\RPC<br>
+
+				<b>Author:</b>
+				deepeloper (<a href="https://github.com/deepeloper">https://github.com/deepeloper</a>)<br>
+			<b>Located at</b> Deepelopment/Net/RPC/Client_Interface.php		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="open" id="_open">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_open">#</a>
+		<code>open( <span>string <var>$url</var></span> )</code>
+
+		<div class="description short">
+			<p>Opens connection to remote service.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Opens connection to remote service.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="execute" id="_execute">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_execute">#</a>
+		<code>execute( <span>string <var>$method</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>boolean <var>$resetOptions</var> = <span class="php-keyword1">FALSE</span></span>, <span>string <var>$url</var> = <span class="php-quote">''</span> </span> )</code>
+
+		<div class="description short">
+			<p>Executes remote server method.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Executes remote server method.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$method</var></dt>
+					<dd></dd>
+					<dt><var>$params</var></dt>
+					<dd></dd>
+					<dt><var>$options</var></dt>
+					<dd></dd>
+					<dt><var>$resetOptions</var></dt>
+					<dd>Flag specifying to reset previous options</dd>
+					<dt><var>$url</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="close" id="_close">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_close">#</a>
+		<code>close( )</code>
+
+		<div class="description short">
+			<p>Closes connection to remote service.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Closes connection to remote service.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
