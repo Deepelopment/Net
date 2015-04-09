@@ -12,7 +12,7 @@ namespace Deepelopment\Net;
  * Request based on cURL library implementation.
  *
  * @package Deepelopment/Net
- * @author  deepeloper (https://github.com/deepeloper)
+ * @author  deepeloper ({@see https://github.com/deepeloper})
  */
 class Request
 {
@@ -23,7 +23,7 @@ class Request
     /**
      * Default options
      *
-     * @var rray
+     * @var array
      */
     protected $defaultOptions = array(
         // cURL library options
@@ -56,17 +56,15 @@ class Request
     protected $handler;
 
     /**
-     * Array containing cURL request error
+     * Array containing cURL request error,
      *
-     * @var array
-     * @see http://php.net/manual/en/function.curl-errno.php
-     * @see http://php.net/manual/en/function.curl-error.php
+     * @var  array
+     * @link http://php.net/manual/en/function.curl-errno.php
+     * @link http://php.net/manual/en/function.curl-error.php
      */
     protected $error;
 
     /**
-     * Constructor.
-     *
      * @param array $options  Array of cURL and internal options,
      *                        see self::$defaultOptions
      * @param bool  $reset    Reset previous options
@@ -80,9 +78,6 @@ class Request
         $this->prepareCookieFile('resetCookiesAtStart');
     }
 
-    /**
-     * Destructor.
-     */
     public function __destruct()
     {
         curl_close($this->handler);
@@ -92,7 +87,8 @@ class Request
     /**
      * Sets options.
      *
-     * @param array $options  Array of cURL and internal options, see self::$defaultOptions
+     * @param array $options  Array of cURL and internal options,
+     *                        see {@see self::$defaultOptions}
      * @param bool  $reset    Reset previous options
      */
     public function setOptions(array $options = array(), $reset = FALSE)
@@ -110,7 +106,7 @@ class Request
      * @param  string|array $data
      * @param  int          $method  self::GET | self::POST
      * @return mixed  curl_exec() result
-     * @see    http://php.net/manual/en/function.curl-exec.php
+     * @limk   http://php.net/manual/en/function.curl-exec.php
      */
     public function send($url, $data = '', $method = self::METHOD_GET)
     {
@@ -168,7 +164,7 @@ class Request
      *
      * @parm   int  $option
      * @return mixed
-     * @see    http://php.net/manual/en/function.curl-getinfo.php
+     * @limk   http://php.net/manual/en/function.curl-getinfo.php
      */
     public function getInfo($option = 0)
     {
@@ -179,8 +175,8 @@ class Request
      * Returns cURL error.
      *
      * @return array
-     * @see    http://php.net/manual/en/function.curl-errno.php
-     * @see    http://php.net/manual/en/function.curl-error.php
+     * @limk   http://php.net/manual/en/function.curl-errno.php
+     * @limk   http://php.net/manual/en/function.curl-error.php
      */
     public function getError()
     {

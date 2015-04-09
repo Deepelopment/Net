@@ -14,6 +14,7 @@ use RuntimeException;
 /**
  * Remote Procedure Call client/server implementation.
  *
+ * Example:
  * <code>
  * use Deepelopment\Net\RPC;
  *
@@ -35,11 +36,10 @@ use RuntimeException;
  *         // ...
  *     )
  * );
- * var_dump($response);
  * </code>
  *
  * @package Deepelopment/Net
- * @author  deepeloper (https://github.com/deepeloper)
+ * @author  deepeloper ({@see https://github.com/deepeloper})
  * @todo    Logging
  */
 class RPC
@@ -53,8 +53,6 @@ class RPC
     protected $layer;
 
     /**
-     * Constructor.
-     *
      * @param  string $layer    RPC layer, for exaple 'JSON'
      * @param  int    $type     self::TYPE_CLIENT | self::TYPE_SERVER
      * @param  array  $options  Options passing to the layer

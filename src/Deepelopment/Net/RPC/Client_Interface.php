@@ -9,10 +9,11 @@
 namespace Deepelopment\Net\RPC;
 
 /**
- * Remote Procedure Call client layer interface.
+ * Remote Procedure Call client layer interface,
+ * see {@see Deepelopment\Net\RPC}, {@see Deepelopment\Net\RPC\Client\JSON}.
  *
  * @package Deepelopment/Net/RPC
- * @author  deepeloper (https://github.com/deepeloper)
+ * @author  deepeloper ({@see https://github.com/deepeloper})
  */
 interface Client_Interface
 {

@@ -9,10 +9,11 @@
 namespace Deepelopment\Net\RPC;
 
 /**
- * Remote Procedure Call layer interface.
+ * Remote Procedure Call layer abstract class,
+ * see {@see Deepelopment\Net\RPC}, {@see Deepelopment\Net\RPC\Client\JSON}.
  *
  * @package Deepelopment/Net/RPC
- * @author  deepeloper (https://github.com/deepeloper)
+ * @author  deepeloper ({@see https://github.com/deepeloper})
  */
 abstract class Layer
 {
@@ -24,8 +25,6 @@ abstract class Layer
     protected $options;
 
     /**
-     * Constructor.
-     *
      * @param array  $options  Layer options
      */
     public function __construct(array $options = array())

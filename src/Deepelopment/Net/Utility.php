@@ -12,7 +12,7 @@ namespace Deepelopment\Net;
  * Net utilities.
  *
  * @package Deepelopment/Net
- * @author  deepeloper (https://github.com/deepeloper)
+ * @author  deepeloper ({@see https://github.com/deepeloper})
  */
 class Utility
 {
@@ -21,7 +21,7 @@ class Utility
      *
      * @param  array $url
      * @return string
-     * @see    http://php.net/manual/en/function.parse-url.php
+     * @link   http://php.net/manual/en/function.parse-url.php
      */
     static public function buildUrl(array $url)
     {

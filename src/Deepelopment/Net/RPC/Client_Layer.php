@@ -12,7 +12,7 @@ namespace Deepelopment\Net\RPC;
  * Remote Procedure Call client layer abstract class.
  *
  * @package Deepelopment/Net/RPC
- * @author  deepeloper (https://github.com/deepeloper)
+ * @author  deepeloper ({@see https://github.com/deepeloper})
  */
 abstract class Client_Layer extends Layer
 {
@@ -23,9 +23,6 @@ abstract class Client_Layer extends Layer
      */
     protected $transport;
 
-    /**
-     * Destructor.
-     */
     public function __destruct()
     {
         $this->close();

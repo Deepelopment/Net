@@ -13,12 +13,11 @@ use Deepelopment\Net\Request;
 use Deepelopment\Net\Utility;
 
 /**
- * Remote Procedure Call client layer abstract class.
- *
- * Using \Deepelopment\Net\Request to connect to remote service.
+ * Remote Procedure Call client layer
+ * using \Deepelopment\Net\Request abstract class.
  *
  * @package Deepelopment/Net/RPC
- * @author  deepeloper (https://github.com/deepeloper)
+ * @author  deepeloper ({@see https://github.com/deepeloper})
  */
 abstract class Client_Layer_Net extends Client_Layer
 {

@@ -8,7 +8,6 @@
 
 namespace Deepelopment\Net\RPC\Client;
 
-
 use BadFunctionCallException;
 use InvalidArgumentException;
 use RuntimeException;
@@ -17,12 +16,13 @@ use Deepelopment\Net\RPC\Client_Interface;
 use Deepelopment\Net\RPC\Client_Layer_Net;
 
 /**
- * Remote Procedure Call JSON client layer.
+ * Remote Procedure Call JSON client layer,
+ * see {@see Deepelopment\Net\RPC}.
  *
- * Based on https://github.com/fguillot/JsonRPC.
+ * Based on {@see https://github.com/fguillot/JsonRPC}.
  *
  * @package Deepelopment/Net/RPC
- * @author  deepeloper (https://github.com/deepeloper)
+ * @author  deepeloper ({@see https://github.com/deepeloper})
  */
 class JSON extends Client_Layer_Net implements Client_Interface
 {
