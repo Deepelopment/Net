@@ -19,7 +19,7 @@ use Deepelopment\Net\Utility;
  * @package Deepelopment/Net/RPC
  * @author  deepeloper ({@see https://github.com/deepeloper})
  */
-abstract class Client_Layer_Net extends Client_Layer
+abstract class ClientLayerNet extends ClientLayer
 {
     /**
      * @var \Deepelopment\Net\Request

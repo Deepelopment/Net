@@ -20,7 +20,7 @@ use RuntimeException;
  *
  * $client = new RPC(
  *     'JSON',
- *     // or class implementing Deepelopment\Net\RPC\Client_Interface interface:
+ *     // or class implementing Deepelopment\Net\RPC\ClientInterface interface:
  *     // '\\My\\Namespace\\JSON',
  *     RPC::TYPE_CLIENT,
  *     array(
@@ -81,7 +81,7 @@ class RPC
             $class = $layer;
         }
         $this->layer = new $class($options);
-        $interface = "Deepelopment\\Net\\RPC\\{$type}_Layer";
+        $interface = "Deepelopment\\Net\\RPC\\{$type}Layer";
         if (!($this->layer instanceof $interface)) {
             throw new RuntimeException(
                 sprintf('Class %s does not implement %s interface', $class, $interface)

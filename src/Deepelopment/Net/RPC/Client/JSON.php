@@ -12,8 +12,8 @@ use BadFunctionCallException;
 use InvalidArgumentException;
 use RuntimeException;
 use Deepelopment\Net\Request;
-use Deepelopment\Net\RPC\Client_Interface;
-use Deepelopment\Net\RPC\Client_Layer_Net;
+use Deepelopment\Net\RPC\ClientInterface;
+use Deepelopment\Net\RPC\ClientLayerNet;
 
 /**
  * Remote Procedure Call JSON client layer,
@@ -24,7 +24,7 @@ use Deepelopment\Net\RPC\Client_Layer_Net;
  * @package Deepelopment/Net/RPC
  * @author  deepeloper ({@see https://github.com/deepeloper})
  */
-class JSON extends Client_Layer_Net implements Client_Interface
+class JSON extends ClientLayerNet implements ClientInterface
 {
     const JSON_RPC_VERSION = '2.0';
 

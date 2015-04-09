@@ -15,7 +15,7 @@ namespace Deepelopment\Net\RPC;
  * @package Deepelopment/Net/RPC
  * @author  deepeloper ({@see https://github.com/deepeloper})
  */
-interface Client_Interface
+interface ClientInterface
 {
     /**
      * Opens connection to remote service.
