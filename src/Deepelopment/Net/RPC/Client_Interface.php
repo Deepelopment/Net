@@ -44,24 +44,6 @@ interface Client_Interface
     );
 
     /**
-     * Executes remote server method.
-     *
-     * @param  array   $batch
-     * @param  array   $options
-     * @param  bool    $resetOptions  Flag specifying to reset previous options
-     * @param  string  $url
-     * @return mixed
-     */
-    /*
-    public function batchExecute(
-        array $batch,
-        array $options = array(),
-        $resetOptions = FALSE,
-        $url = ''
-    );
-    */
-
-    /**
      * Closes connection to remote service.
      *
      * @return void
