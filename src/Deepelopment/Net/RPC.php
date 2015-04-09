@@ -20,8 +20,7 @@ use RuntimeException;
  *
  * $client = new RPC(
  *     'JSON',
- *     // or class implementing Deepelopment\Net\RPC\Client_Interface
- *     // interface:
+ *     // or class implementing Deepelopment\Net\RPC\Client_Interface interface:
  *     // '\\My\\Namespace\\JSON',
  *     RPC::TYPE_CLIENT,
  *     array(
