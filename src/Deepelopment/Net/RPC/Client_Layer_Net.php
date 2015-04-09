@@ -61,12 +61,12 @@ abstract class Client_Layer_Net extends Client_Layer
             unset($parsedURL['user'], $parsedURL['pass']);
             $url = Utility::buildUrl($parsedURL);
         }
-        unset($parsedURL);
         if ('' !== $auth) {
             $options[CURLOPT_USERPWD] = $auth;
         }
+        unset($parsedURL, $auth);
         $this->transport->setOptions($options, $resetOptions);
-        $response = $this->transport->send($url, $data, $options['method']);
+        $response = $this->transport->send($url, array(), $options['method']);
         $code = $this->transport->getInfo(CURLINFO_HTTP_CODE);
         switch ($code) {
             case 200:
