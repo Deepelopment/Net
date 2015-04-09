@@ -50,7 +50,7 @@ class RPC
     const TYPE_SERVER = 2;
 
     /**
-     * @var \Deepelopment\Net\RPC\Layer
+     * @var \Deepelopment\Net\RPC\ClientInterface | \Deepelopment\Net\RPC\ServerInterface
      */
     protected $layer;
 

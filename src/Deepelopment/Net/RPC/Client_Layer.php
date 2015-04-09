@@ -14,7 +14,7 @@ namespace Deepelopment\Net\RPC;
  * @package Deepelopment/Net/RPC
  * @author  deepeloper ({@see https://github.com/deepeloper})
  */
-abstract class Client_Layer extends Layer
+abstract class ClientLayer extends Layer
 {
     /**
      * Remote service transport object
