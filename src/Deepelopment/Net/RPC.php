@@ -43,6 +43,8 @@ use RuntimeException;
  * @package Deepelopment/Net
  * @author  deepeloper ({@see https://github.com/deepeloper})
  * @todo    Logging
+ * @todo    Server layers
+ * @todo    Batch execution
  */
 class RPC
 {
@@ -92,7 +94,7 @@ class RPC
     /**
      * Returns layer object.
      *
-     * @return \Deepelopment\Net\RPC\Layer
+     * @return \Deepelopment\Net\RPC\Client_Interface | \Deepelopment\Net\RPC\Server_Interface
      */
     public function getLayer()
     {

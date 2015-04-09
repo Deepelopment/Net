@@ -9,13 +9,13 @@
 namespace Deepelopment\Net\RPC;
 
 /**
- * Remote Procedure Call client layer interface,
+ * Remote Procedure Call server layer interface,
  * see {@see Deepelopment\Net\RPC}, {@see Deepelopment\Net\RPC\Client\JSON}.
  *
  * @package Deepelopment/Net/RPC
  * @author  deepeloper ({@see https://github.com/deepeloper})
  */
-interface Client_Interface
+interface Server_Interface
 {
     /**
      * Opens connection to remote service.
@@ -42,24 +42,6 @@ interface Client_Interface
         $resetOptions = FALSE,
         $url = ''
     );
-
-    /**
-     * Executes remote server method.
-     *
-     * @param  array   $batch
-     * @param  array   $options
-     * @param  bool    $resetOptions  Flag specifying to reset previous options
-     * @param  string  $url
-     * @return mixed
-     */
-    /*
-    public function batchExecute(
-        array $batch,
-        array $options = array(),
-        $resetOptions = FALSE,
-        $url = ''
-    );
-    */
 
     /**
      * Closes connection to remote service.
