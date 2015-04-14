@@ -46,7 +46,6 @@ use RuntimeException;
  * @author  deepeloper ({@see https://github.com/deepeloper})
  * @throws  InvalidArgumentException
  * @throws  RuntimeException
- * @todo    Logging
  */
 class RPC
 {

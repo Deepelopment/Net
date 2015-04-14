@@ -9,6 +9,7 @@
 namespace Deepelopment\Net\RPC\Server;
 
 use \InvalidArgumentException;
+use Deepelopment\Logger;
 use Deepelopment\Net\RPC\ServerLayer;
 use Deepelopment\Net\RPC\ServerInterface;
 
@@ -52,6 +53,12 @@ class JSON extends ServerLayer
         } else {
             $this->request = file_get_contents('php://input');
         }
+
+        $this-logger(
+            sprint("JSON Server request:\n%s" . var_export($this->request)),
+            Logger::NOTICE
+        );
+
         if (is_string($this->request)) {
             $this->request = json_decode($this->request, TRUE);
         }

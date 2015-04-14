@@ -8,6 +8,8 @@
 
 namespace Deepelopment\Net\RPC;
 
+use Deepelopment\Logger;
+
 /**
  * Remote Procedure Call layer abstract class,
  * see {@see Deepelopment\Net\RPC}, {@see Deepelopment\Net\RPC\Client\JSON}.
@@ -25,11 +27,21 @@ abstract class Layer
     protected $options;
 
     /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * @param array  $options  Layer options
      */
     public function __construct(array $options = array())
     {
         $this->options = $options + $this->getDefaultOptions();
+        $this->logger = new Logger(
+            isset($options['logger'])
+                ? $options['logger']
+                : array()
+        );
     }
 
     /**

@@ -10,6 +10,7 @@ namespace Deepelopment\Net\RPC;
 
 use RuntimeException;
 use BadFunctionCallException;
+use Deepelopment\Logger;
 use Deepelopment\Net\UnauthorizedAccessException;
 use Deepelopment\Net\IPRestrictionException;
 
@@ -79,6 +80,10 @@ abstract class ServerLayer extends Layer implements ServerInterface
             !isset($users[$this->environment['PHP_AUTH_USER']]) ||
             $users[$this->environment['PHP_AUTH_USER']] !== $this->environment['PHP_AUTH_PW']
         ) {
+            $this->logger->write(
+                'Unauthorized access',
+                Logger::WARNINIG
+            );
             throw new UnauthorizedAccessException;
         }
     }
@@ -92,6 +97,13 @@ abstract class ServerLayer extends Layer implements ServerInterface
     public function restrictByIPs(array $hosts)
     {
         if (!in_array($this->environment['REMOTE_ADDR'], $hosts)) {
+            $this->logger->write(
+                sprintf(
+                    'IP restriction for %s',
+                    $this->environment['REMOTE_ADDR']
+                ),
+                Logger::WARNINIG
+            );
             throw new IPRestrictionException;
         }
     }
@@ -107,10 +119,21 @@ abstract class ServerLayer extends Layer implements ServerInterface
     protected function executeMethod($method, array $params = NULL)
     {
         if (!isset($this->methods[$method])) {
-            throw new BadFunctionCallException("Method '{$method}' not found");
+            $message =
+                sprintf(
+                    "Method '%s' not found",
+                    $this->environment['REMOTE_ADDR']
+                );
+            $this->logger->write($message, Logger::WARNINIG);
+            throw new BadFunctionCallException($message);
         }
-        $result = call_user_func($this->methods[$method], $params);
+        $response = call_user_func($this->methods[$method], $params);
 
-        return $result;
+        $this-logger(
+            sprint("JSON Server response:\n%s" . var_export($response)),
+            Logger::NOTICE
+        );
+
+        return $response;
     }
 }
