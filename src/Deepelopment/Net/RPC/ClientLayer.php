@@ -31,14 +31,16 @@ abstract class ClientLayer extends Layer
     /**
      * Patches response.
      *
-     * @param string &$response
+     * @param  string &$response
+     * @return void
      */
     abstract protected function patchResponse(&$response);
 
     /**
      * Validates response.
      *
-     * @param mixed $response
+     * @param  string &$response
+     * @return void
      */
     abstract protected function validateResponse($response);
 }

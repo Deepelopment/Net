@@ -2,6 +2,8 @@
 /**
  * PHP Deepelopment Framework
  *
+ * Some overview...
+ *
  * @package Deepelopment/Net
  * @license Unlicense http://unlicense.org/
  */
@@ -42,6 +44,8 @@ use RuntimeException;
  *
  * @package Deepelopment/Net
  * @author  deepeloper ({@see https://github.com/deepeloper})
+ * @throws  InvalidArgumentException
+ * @throws  RuntimeException
  * @todo    Logging
  */
 class RPC
@@ -50,7 +54,9 @@ class RPC
     const TYPE_SERVER = 2;
 
     /**
-     * @var \Deepelopment\Net\RPC\ClientInterface | \Deepelopment\Net\RPC\ServerInterface
+     * @var
+     *      \Deepelopment\Net\RPC\ClientInterface |
+     *      \Deepelopment\Net\RPC\ServerInterface
      */
     protected $layer;
 

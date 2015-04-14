@@ -22,6 +22,8 @@ use Deepelopment\Net\Utility;
 abstract class ClientLayerNet extends ClientLayer
 {
     /**
+     * Remote service transport object
+     *
      * @var \Deepelopment\Net\Request
      */
     protected $transport;
@@ -31,6 +33,12 @@ abstract class ClientLayerNet extends ClientLayer
      */
     protected $url;
 
+    /**
+     * Opens connection to remote service.
+     *
+     * @param  string $url
+     * @return void
+     */
     public function open($url)
     {
         $this->transport = new Request($this->options);
@@ -38,11 +46,18 @@ abstract class ClientLayerNet extends ClientLayer
     }
 
     /**
+     * Sends request to remote server method.
+     *
+     * @param  mixed   $request
+     * @param  array   $options       {@see
+     *                                \Deepelopment\Net\Request::__construct()}
+     * @param  bool    $resetOptions  Flag specifying to reset previous options
+     * @param  string  $url           Cusrom URL if differs from initialized
+     * @return mixed
      * @throws RuntimeException  In case of remote service returns not '200 OK'
      */
-    public function execute(
-        $method,
-        array $params = NULL,
+    protected function send(
+        $request,
         array $options = array(),
         $resetOptions = FALSE,
         $url = ''
@@ -66,7 +81,7 @@ abstract class ClientLayerNet extends ClientLayer
         }
         unset($parsedURL, $auth);
         $this->transport->setOptions($options, $resetOptions);
-        $response = $this->transport->send($url, array(), $options['method']);
+        $response = $this->transport->send($url, $request, $options['method']);
         $code = $this->transport->getInfo(CURLINFO_HTTP_CODE);
         switch ($code) {
             case 200:

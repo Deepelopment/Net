@@ -26,8 +26,22 @@ use Deepelopment\Net\RPC\ClientLayerNet;
  */
 class JSON extends ClientLayerNet implements ClientInterface
 {
+    /**
+     * Version of protocol
+     */
     const JSON_RPC_VERSION = '2.0';
 
+    /**
+     * Executes remote server method.
+     *
+     * @param  string  $method
+     * @param  array   $params
+     * @param  array   $options       {@see
+     *                                \Deepelopment\Net\Request::__construct()}
+     * @param  bool    $resetOptions  Flag specifying to reset previous options
+     * @param  string  $url           Cusrom URL if differs from initialized
+     * @return mixed
+     */
     public function execute(
         $method,
         array $params = NULL,
@@ -36,18 +50,118 @@ class JSON extends ClientLayerNet implements ClientInterface
         $url = ''
     )
     {
-        $data = array(
+        $request = $this->prepareRequest($method, $params);
+        $response = $this->sendRequest($request, $options, $resetOptions, $url);
+
+        return $response;
+    }
+
+    /**
+     * Executes remote server batch.
+     *
+     * @param  array   $batch         Array containing arrays:
+     *                                [
+     *                                    'method' => ...(,
+     *                                    'params' => array(,,,))
+     *                                ]
+     * @param  array   $options       {@see
+     *                                \Deepelopment\Net\Request::__construct()}
+     * @param  bool    $resetOptions  Flag specifying to reset previous options
+     * @param  string  $url           Cusrom URL if differs from initialized
+     * @return mixed
+     */
+    public function executeBatch(
+        array $batch,
+        array $options = array(),
+        $resetOptions = FALSE,
+        $url = ''
+    )
+    {
+        $request = array();
+        foreach ($batch as $command) {
+            $params = isset($command['params']) ? $command['params'] : NULL;
+            $request[] = $this->prepareRequest($command['method'], $params);
+        }
+        $response = $this->sendRequest($request, $options, $resetOptions, $url);
+
+        return $response;
+    }
+
+    protected function getDefaultOptions()
+    {
+        return
+            array(
+                CURLOPT_CUSTOMREQUEST => 'POST'
+            );
+    }
+
+    /**
+     * Patches response.
+     *
+     * @param  string &$response
+     * @return void
+     */
+    protected function patchResponse(&$response)
+    {
+    }
+
+    /**
+     * Validates response.
+     *
+     * @param  string &$response
+     * @return void
+     */
+    protected function validateResponse($response)
+    {
+        if (
+            isset($response['code']) &&
+            isset($response['message'])
+        ) {
+            $this->handleError($response);
+        }
+    }
+
+    /**
+     * Prepares request data using calling RPC method and parameters.
+     *
+     * @param  string $method
+     * @param  array  $params
+     * @return array
+     */
+    protected function prepareRequest($method, array $params = NULL)
+    {
+        $request = array(
             'jsonrpc' => self::JSON_RPC_VERSION,
             'method'  => $method,
-            'id'      => mt_rand()
+            'id'      => microtime(TRUE) . mt_rand()
         );
         if (is_array($params)) {
-            $data['params'] = $params;
+            $request['params'] = $params;
         }
-        $options['method'] = Request::METHOD_OTHER;
-        $options[CURLOPT_POSTFIELDS] = json_encode($data);
 
-        $response = parent::execute($method, array(), $options, $resetOptions, $url);
+        return $request;
+    }
+
+    /**
+     * Sends request to remote server.
+     *
+     * @param  array   $request
+     * @param  array   $options
+     * @param  bool    $resetOptions  Flag specifying to reset previous options
+     * @param  string  $url
+     * @return mixed
+     */
+    protected function sendRequest(
+        array $request,
+        array $options = array(),
+        $resetOptions = FALSE,
+        $url = ''
+    )
+    {
+        $options['method'] = Request::METHOD_OTHER;
+        $options[CURLOPT_POSTFIELDS] = json_encode($request);
+
+        $response = $this->send('', $options, $resetOptions, $url);
 
         $response = json_decode($response, TRUE);
         $this->validateResponse($response);
@@ -60,28 +174,6 @@ class JSON extends ClientLayerNet implements ClientInterface
             : NULL;
 
         return $result;
-    }
-
-    protected function getDefaultOptions()
-    {
-        return
-            array(
-                CURLOPT_CUSTOMREQUEST => 'POST'
-            );
-    }
-
-    protected function patchResponse(&$response)
-    {
-    }
-
-    protected function validateResponse($response)
-    {
-        if (
-            isset($response['code']) &&
-            isset($response['message'])
-        ) {
-            $this->handleError($response);
-        }
     }
 
     /**
