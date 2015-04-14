@@ -12,6 +12,9 @@ use \InvalidArgumentException;
 use Deepelopment\Net\RPC\ServerLayer;
 use Deepelopment\Net\RPC\ServerInterface;
 
+class InvalidJSONFormat extends Exception {};
+class InvalidJSONRPCFormat extends Exception {};
+
 /**
  * Remote Procedure Call JSON server layer,
  * see {@see Deepelopment\Net\RPC}.
@@ -21,7 +24,6 @@ use Deepelopment\Net\RPC\ServerInterface;
  * @package Deepelopment/Net/RPC
  * @author  deepeloper ({@see https://github.com/deepeloper})
  * @todo    Batch execution
- * @todo    Valid JSON answers for known errors
  */
 class JSON extends ServerLayer
 {
@@ -52,21 +54,6 @@ class JSON extends ServerLayer
         }
         if (is_string($this->request)) {
             $this->request = json_decode($this->request, TRUE);
-        }
-        if (!is_array($this->request)) {
-            throw new InvalidArgumentException('Malformed request');
-        }
-        if (
-            !isset($this->request['jsonrpc']) ||
-            !isset($this->request['method']) ||
-            !is_string($this->request['method']) ||
-            $this->request['jsonrpc'] !== self::JSON_RPC_VERSION ||
-            (
-                isset($this->request['params']) &&
-                !is_array($this->request['params'])
-            )
-        ) {
-            throw new InvalidArgumentException('Invalid JSON RPC request');
         }
     }
 
@@ -120,18 +107,64 @@ class JSON extends ServerLayer
             $this->options = $options + $this->options;
         }
 
-        $response = $this->executeMethod(
-            $this->request['method'],
-            isset($this->request['params'])
-            ? $this->request['params']
-            : NULL
-        );
+        try {
+            if (!is_array($this->request)) {
+                throw new InvalidJSONFormat('Malformed request');
+            }
+            if (
+                !isset($this->request['jsonrpc']) ||
+                !isset($this->request['method']) ||
+                !is_string($this->request['method']) ||
+                $this->request['jsonrpc'] !== self::JSON_RPC_VERSION ||
+                (
+                    isset($this->request['params']) &&
+                    !is_array($this->request['params'])
+                )
+            ) {
+                throw new InvalidJSONRPCFormat('Invalid JSON RPC request');
+            }
+
+            $response = $this->executeMethod(
+                $this->request['method'],
+                isset($this->request['params'])
+                ? $this->request['params']
+                : NULL
+            );
+
+        } catch (InvalidJSONFormat $exception) {
+            $this->send(
+                array(
+                    'error' => array(
+                        'code'    => -32700,
+                        'message' => 'Parse error'
+                    )
+                )
+            );
+        } catch (InvalidJSONRPCFormat $exception) {
+            $this->send(
+                array(
+                    'error' => array(
+                        'code'    => -32600,
+                        'message' => 'Invalid JSON RPC request'
+                    )
+                )
+            );
+        } catch (BadFunctionCallException $exception) {
+            $this->send(
+                array(
+                    'error' => array(
+                        'code'    => -32601,
+                        'message' => $exception->getMessage()
+                    )
+                )
+            );
+        }
+
         if (is_array($response)) {
             $response = array('result' => $response);
         }
 
-        echo json_encode($response);
-        exit;
+        $this->send($response);
     }
 
     /**
@@ -146,5 +179,21 @@ class JSON extends ServerLayer
         );
 
         return $result;
+    }
+
+    /**
+     * Send JSON response.
+     *
+     * @param  array  $response
+     * @param  string $id
+     * @return void
+     */
+    protected function send(array $response, $id = NULL)
+    {
+        header('Content-Type: application/json');
+        $response['jsonrpc'] = self::JSON_RPC_VERSION;
+        $response['id'] = $id;
+        echo json_encode($response);
+        exit;
     }
 }
