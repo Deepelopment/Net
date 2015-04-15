@@ -11,8 +11,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.1"
-        "deepeloper/Deepelopment": "dev-develop",
+        "php": ">=5.3.1",
+        "deepeloper/Deepelopment": "dev-develop"
     },
     "autoload": {
         "psr-0": {"Deepelopment\\Net": "src/"},
