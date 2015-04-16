@@ -16,11 +16,12 @@ use RuntimeException;
 /**
  * Remote Procedure Call client/server implementation.
  *
+ * Factory, returnining RPC layers.
  * Example:
  * <code>
  * use Deepelopment\Net\RPC;
  *
- * $client = new RPC(
+ * $client = RPC::getLayer(
  *     'JSON',
  *     // or class implementing Deepelopment\Net\RPC\ClientInterface interface:
  *     // '\\My\\Namespace\\JSON',
@@ -30,9 +31,8 @@ use RuntimeException;
  *         CURLOPT_SSL_VERIFYHOST => FALSE
  *     )
  * );
- * $layer = $client->getLayer();
- * $layer->open('https://user:password@domain:port/');
- * $response = $layer->execute(
+ * $client->open('https://user:password@domain:port/');
+ * $response = $client->execute(
  *     'methodName',
  *     array(
  *         'param1' => 'value1',
@@ -44,8 +44,6 @@ use RuntimeException;
  *
  * @package Deepelopment/Net
  * @author  deepeloper ({@see https://github.com/deepeloper})
- * @throws  InvalidArgumentException
- * @throws  RuntimeException
  */
 class RPC
 {
@@ -53,20 +51,16 @@ class RPC
     const TYPE_SERVER = 2;
 
     /**
-     * @var
-     *      \Deepelopment\Net\RPC\ClientInterface |
-     *      \Deepelopment\Net\RPC\ServerInterface
-     */
-    protected $layer;
-
-    /**
+     * Returns RPC layer.
+     *
      * @param  string $layer    RPC layer, for exaple 'JSON'
      * @param  int    $type     self::TYPE_CLIENT | self::TYPE_SERVER
      * @param  array  $options  Options passing to the layer
+     * @return \Deepelopment\Net\RPC\Layer
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public function __construct($layer, $type, array $options = array())
+    public static function getLayer($layer, $type, array $options = array())
     {
         switch ($type) {
             case self::TYPE_CLIENT:
@@ -85,22 +79,14 @@ class RPC
         } else {
             $class = $layer;
         }
-        $this->layer = new $class($options);
+        $layer = new $class($options);
         $interface = "Deepelopment\\Net\\RPC\\{$type}Layer";
-        if (!($this->layer instanceof $interface)) {
+        if (!($layer instanceof $interface)) {
             throw new RuntimeException(
                 sprintf('Class %s does not implement %s interface', $class, $interface)
             );
         }
-    }
 
-    /**
-     * Returns layer object.
-     *
-     * @return \Deepelopment\Net\RPC\Layer
-     */
-    public function getLayer()
-    {
-        return $this->layer;
+        return $layer;
     }
 }
