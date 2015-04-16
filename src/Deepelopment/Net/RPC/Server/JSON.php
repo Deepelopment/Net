@@ -168,7 +168,7 @@ class JSON extends ServerLayer
             );
         }
 
-        if (is_array($response)) {
+        if (is_array($response) && empty($response['error'])) {
             $response = array('result' => $response);
         }
 
