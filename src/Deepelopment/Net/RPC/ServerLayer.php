@@ -37,6 +37,13 @@ abstract class ServerLayer extends Layer implements ServerInterface
     protected $methods = array();
 
     /**
+     * Request data
+     *
+     * @var mixed
+     */
+    protected $request;
+
+    /**
      * @param array  $options  Layer options
      */
     public function __construct(array $options = array())
@@ -107,6 +114,17 @@ abstract class ServerLayer extends Layer implements ServerInterface
             throw new IPRestrictionException;
         }
     }
+
+    /**
+     * Returns passed request.
+     *
+     * @return mixed
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
 
     /**
      * Executes method

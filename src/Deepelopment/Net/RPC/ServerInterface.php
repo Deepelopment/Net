@@ -48,4 +48,11 @@ interface ServerInterface
      * @return mixed
      */
     public function execute(array $options = array(), $resetOptions = FALSE);
+
+    /**
+     * Returns passed request.
+     *
+     * @return mixed
+     */
+    public function getRequest();
 }

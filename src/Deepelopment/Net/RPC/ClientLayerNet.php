@@ -88,17 +88,16 @@ abstract class ClientLayerNet extends ClientLayer
                 break;
             default:
                 if (
-                    '' != $response &&
-                    '{' == mb_substr($response, 0, 1, 'ASCII') &&
-                    '}' == mb_substr($response, -1, NULL, 'ASCII')
-                ){
-                    break;
+                    '' == $response ||
+                    '{' != mb_substr($response, 0, 1, 'ASCII') &&
+                    '}' != mb_substr($response, -1, NULL, 'ASCII')
+                ) {
+                    $error = $this->transport->getError();
+                    throw new RuntimeException(
+                        $error['message'],
+                        $error['code']
+                    );
                 }
-                $error = $this->transport->getError();
-                throw new RuntimeException(
-                    $error['message'],
-                    $error['code']
-                );
         }
         $this->patchResponse($response);
 

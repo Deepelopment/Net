@@ -172,7 +172,10 @@ class JSON extends ServerLayer
             $response = array('result' => $response);
         }
 
-        $this->send($response);
+        $request = $this->getRequest();
+        $requestId = isset($request['id']) ? (int)$request['id'] : NULL;
+
+        $this->send($response, $requestId);
     }
 
     /**

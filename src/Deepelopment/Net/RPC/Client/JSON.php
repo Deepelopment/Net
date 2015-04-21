@@ -133,7 +133,7 @@ class JSON extends ClientLayerNet implements ClientInterface
         $request = array(
             'jsonrpc' => self::JSON_RPC_VERSION,
             'method'  => $method,
-            'id'      => microtime(TRUE) . mt_rand()
+            'id'      => mt_rand()
         );
         if (is_array($params)) {
             $request['params'] = $params;
