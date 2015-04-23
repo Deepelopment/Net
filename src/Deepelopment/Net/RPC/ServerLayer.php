@@ -89,7 +89,7 @@ abstract class ServerLayer extends Layer implements ServerInterface
         ) {
             $this->logger->write(
                 'Unauthorized access',
-                Logger::WARNINIG
+                Logger::WARNING
             );
             throw new UnauthorizedAccessException;
         }
@@ -109,7 +109,7 @@ abstract class ServerLayer extends Layer implements ServerInterface
                     'IP restriction for %s',
                     $this->environment['REMOTE_ADDR']
                 ),
-                Logger::WARNINIG
+                Logger::WARNING
             );
             throw new IPRestrictionException;
         }
@@ -140,9 +140,9 @@ abstract class ServerLayer extends Layer implements ServerInterface
             $message =
                 sprintf(
                     "Method '%s' not found",
-                    $this->environment['REMOTE_ADDR']
+                    $method
                 );
-            $this->logger->write($message, Logger::WARNINIG);
+            $this->logger->write($message, Logger::WARNING);
             throw new BadFunctionCallException($message);
         }
         $response = call_user_func($this->methods[$method], $params);
