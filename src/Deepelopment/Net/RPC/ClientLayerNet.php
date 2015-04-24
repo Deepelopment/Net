@@ -74,7 +74,7 @@ abstract class ClientLayerNet extends ClientLayer
                 $auth .= $parsedURL['pass'];
             }
             unset($parsedURL['user'], $parsedURL['pass']);
-            $url = Utility::buildUrl($parsedURL);
+            $url = Utility::buildURL($parsedURL);
         }
         if ('' !== $auth) {
             $options[CURLOPT_USERPWD] = $auth;

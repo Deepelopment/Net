@@ -23,7 +23,7 @@ class Utility
      * @return string
      * @link   http://php.net/manual/en/function.parse-url.php
      */
-    static public function buildUrl(array $url)
+    static public function buildURL(array $url)
     {
         $result = '';
         if (isset($url['scheme'])) {
