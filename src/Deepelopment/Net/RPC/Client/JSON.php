@@ -8,9 +8,10 @@
 
 namespace Deepelopment\Net\RPC\Client;
 
-use BadFunctionCallException;
+use BadMethodCallException;
 use InvalidArgumentException;
 use RuntimeException;
+use Deepelopment\Logger;
 use Deepelopment\Net\Request;
 use Deepelopment\Net\RPC\ClientInterface;
 use Deepelopment\Net\RPC\ClientLayerNet;
@@ -163,14 +164,24 @@ class JSON extends ClientLayerNet implements ClientInterface
 
         $response = $this->send('', $options, $resetOptions, $url);
 
-        $response = json_decode($response, TRUE);
-        $this->validateResponse($response);
-        if (isset($response['error'])) {
-            $this->validateResponse($response['error']);
+        $decoded = json_decode($response, TRUE);
+        if (!is_array($decoded)) {
+            $this->logger->write(
+                sprintf(
+                    "%s: invalid response received:\n%s",
+                    get_class($this),
+                    var_export($response, TRUE)
+                ),
+                Logger::WARNING
+            );
+        }
+        $this->validateResponse($decoded);
+        if (isset($decoded['error'])) {
+            $this->validateResponse($decoded['error']);
         }
         $result =
-            isset($response['result'])
-            ? $response['result']
+            isset($decoded['result'])
+            ? $decoded['result']
             : NULL;
 
         return $result;
@@ -181,7 +192,7 @@ class JSON extends ClientLayerNet implements ClientInterface
      *
      * @param  array $error
      * @return void
-     * @throws BadFunctionCallException
+     * @throws BadMethodCallException
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
@@ -190,7 +201,7 @@ class JSON extends ClientLayerNet implements ClientInterface
         $data = isset($error['data']) ? ". " . $error['data'] : '';
         switch ($error['code']) {
             case -32601:
-                throw new BadFunctionCallException(
+                throw new BadMethodCallException(
                     $error['message'] . $data
                 );
             case -32602:

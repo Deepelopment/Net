@@ -9,7 +9,7 @@
 namespace Deepelopment\Net\RPC;
 
 use RuntimeException;
-use BadFunctionCallException;
+use BadMethodCallException;
 use Deepelopment\Logger;
 use Deepelopment\Net\UnauthorizedAccessException;
 use Deepelopment\Net\IPRestrictionException;
@@ -132,7 +132,7 @@ abstract class ServerLayer extends Layer implements ServerInterface
      * @param  mixed $method
      * @param  mixed $params
      * @return mixed
-     * @throws BadFunctionCallException
+     * @throws BadMethodCallException
      */
     protected function executeMethod($method, array $params = NULL)
     {
@@ -143,7 +143,7 @@ abstract class ServerLayer extends Layer implements ServerInterface
                     $method
                 );
             $this->logger->write($message, Logger::WARNING);
-            throw new BadFunctionCallException($message);
+            throw new BadMethodCallException($message);
         }
         $response = call_user_func($this->methods[$method], $params);
 

@@ -9,6 +9,7 @@
 namespace Deepelopment\Net\RPC\Server;
 
 use Exception;
+use BadMethodCallException;
 use InvalidArgumentException;
 use Deepelopment\Logger;
 use Deepelopment\Net\RPC\ServerLayer;
@@ -157,7 +158,7 @@ class JSON extends ServerLayer
                     )
                 )
             );
-        } catch (BadFunctionCallException $exception) {
+        } catch (BadMethodCallException $exception) {
             $this->send(
                 array(
                     'error' => array(

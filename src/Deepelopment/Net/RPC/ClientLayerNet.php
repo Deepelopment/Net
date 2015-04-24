@@ -54,7 +54,8 @@ abstract class ClientLayerNet extends ClientLayer
      * @param  bool    $resetOptions  Flag specifying to reset previous options
      * @param  string  $url           Cusrom URL if differs from initialized
      * @return mixed
-     * @throws RuntimeException  In case of remote service returns not '200 OK'
+     * @throws RuntimeException  In case of remote service returns not '200 OK' or
+     *                           transport was not initialized
      */
     protected function send(
         $request,
@@ -63,6 +64,9 @@ abstract class ClientLayerNet extends ClientLayer
         $url = ''
     )
     {
+        if (!is_object($this->transport)) {
+            throw new RuntimeException("Call open() method first");
+        }
         if ('' === $url) {
             $url = $this->url;
         }
