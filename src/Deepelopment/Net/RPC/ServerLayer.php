@@ -44,6 +44,14 @@ abstract class ServerLayer extends Layer implements ServerInterface
     protected $request;
 
     /**
+     * @var mixed
+     * @see self::setExceptionData()
+     * @see self::executeMethod()
+     * @see self::onExceptionDuringExec()
+     */
+    protected $exceptionData;
+
+    /**
      * @param array  $options  Layer options
      */
     public function __construct(array $options = array())
@@ -125,6 +133,16 @@ abstract class ServerLayer extends Layer implements ServerInterface
         return $this->request;
     }
 
+    /**
+     * Sets exception data.
+     *
+     * @param  mixed $data
+     * @return void
+     */
+    public function setExceptionData($data)
+    {
+        $this->exceptionData = $data;
+    }
 
     /**
      * Executes method
@@ -145,7 +163,12 @@ abstract class ServerLayer extends Layer implements ServerInterface
             $this->logger->write($message, Logger::WARNING);
             throw new BadMethodCallException($message);
         }
-        $response = call_user_func($this->methods[$method], $params);
+        $this->exceptionData = NULL;
+        try {
+            $response = call_user_func($this->methods[$method], $params);
+        } catch (MethodExecutionException $exception) {
+            $response = $this->onExceptionDuringExec($exception);
+        }
 
         $this->logger->write(
             sprintf("JSON Server response:\n%s", var_export($response, TRUE)),
@@ -154,4 +177,12 @@ abstract class ServerLayer extends Layer implements ServerInterface
 
         return $response;
     }
+
+    /**
+     * Returns response according to exception thrown during method execution.
+     *
+     * @param  MethodExecutionException $exception
+     * @return mixed
+     */
+    protected abstract function onExceptionDuringExec(MethodExecutionException $exception);
 }

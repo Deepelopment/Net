@@ -11,12 +11,18 @@ namespace Deepelopment\Net\RPC\Server;
 use Exception;
 use BadMethodCallException;
 use InvalidArgumentException;
+use Deepelopment\Net\RPC\MethodExecutionException;
 use Deepelopment\Logger;
 use Deepelopment\Net\RPC\ServerLayer;
 use Deepelopment\Net\RPC\ServerInterface;
 
-class InvalidJSONFormat extends Exception {};
-class InvalidJSONRPCFormat extends Exception {};
+class InvalidJSONFormat extends Exception
+{
+}
+
+class InvalidJSONRPCFormat extends Exception
+{
+}
 
 /**
  * Remote Procedure Call JSON server layer,
@@ -207,5 +213,32 @@ class JSON extends ServerLayer
         $response['id'] = $id;
         echo json_encode($response);
         exit;
+    }
+
+    /**
+     * Returns response according to exception thrown during method execution.
+     *
+     * @param  MethodExecutionException $exception
+     * @return array
+     */
+    protected function onExceptionDuringExec(MethodExecutionException $exception)
+    {
+        $this->oLogger->write(
+            sprintf(
+                "%s::%s(): %s\n%s",
+                get_class($this),
+                __METHOD__,
+                $exception->getTraceAsString()
+            ),
+            Logger::WARNING
+        );
+
+        return
+            array(
+                'error' => array(
+                    'code'    => $exception->getCode(),
+                    'message' => $exception->getMessage()
+                )
+            );
     }
 }
