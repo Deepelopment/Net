@@ -199,6 +199,16 @@ class JSON extends ClientLayerNet implements ClientInterface
     protected function handleError(array $error)
     {
         $data = isset($error['data']) ? ". " . $error['data'] : '';
+        $this->logger->write(
+            sprintf(
+                "%s: error received:\n%s",
+                get_class($this),
+                print_r($error, TRUE)
+            ),
+            Logger::WARNING
+        );
+
+
         switch ($error['code']) {
             case -32601:
                 throw new BadMethodCallException(

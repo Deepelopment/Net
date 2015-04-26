@@ -223,11 +223,12 @@ class JSON extends ServerLayer
      */
     protected function onExceptionDuringExec(MethodExecutionException $exception)
     {
-        $this->oLogger->write(
+        $this->logger->write(
             sprintf(
                 "%s::%s(): %s\n%s",
                 get_class($this),
                 __METHOD__,
+                (string)$this->exceptionData,
                 $exception->getTraceAsString()
             ),
             Logger::WARNING
