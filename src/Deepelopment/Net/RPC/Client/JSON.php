@@ -162,6 +162,15 @@ class JSON extends ClientLayerNet implements ClientInterface
         $options['method'] = Request::METHOD_OTHER;
         $options[CURLOPT_POSTFIELDS] = json_encode($request);
 
+        $this->logger->write(
+            sprintf(
+                "sending request:\n%s",
+                get_class($this),
+                print_r($request, TRUE)
+            ),
+            Logger::NOTICE
+        );
+
         $response = $this->send('', $options, $resetOptions, $url);
 
         $decoded = json_decode($response, TRUE);
@@ -175,6 +184,15 @@ class JSON extends ClientLayerNet implements ClientInterface
                 Logger::WARNING
             );
         }
+        $this->logger->write(
+            sprintf(
+                "%s received response:\n%s",
+                get_class($this),
+                print_r($decoded, TRUE)
+            ),
+            Logger::NOTICE
+        );
+
         $this->validateResponse($decoded);
         if (isset($decoded['error'])) {
             $this->validateResponse($decoded['error']);

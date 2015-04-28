@@ -62,14 +62,18 @@ class JSON extends ServerLayer
             $this->request = file_get_contents('php://input');
         }
 
-        $this->logger->write(
-            sprintf("JSON Server request:\n%s", var_export($this->request, TRUE)),
-            Logger::NOTICE
-        );
-
         if (is_string($this->request)) {
             $this->request = json_decode($this->request, TRUE);
         }
+
+        $this->logger->write(
+            sprintf(
+                "%s received request:\n%s",
+                get_class($this),
+                var_export($this->request, TRUE)
+            ),
+            Logger::NOTICE
+        );
     }
 
     /**

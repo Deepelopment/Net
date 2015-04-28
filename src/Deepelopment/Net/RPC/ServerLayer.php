@@ -171,7 +171,11 @@ abstract class ServerLayer extends Layer implements ServerInterface
         }
 
         $this->logger->write(
-            sprintf("JSON Server response:\n%s", var_export($response, TRUE)),
+            sprintf(
+                "%s sending response:\n%s",
+                get_class($this),
+                var_export($response, TRUE)
+            ),
             Logger::NOTICE
         );
 
