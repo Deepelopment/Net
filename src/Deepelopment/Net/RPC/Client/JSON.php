@@ -164,7 +164,7 @@ class JSON extends ClientLayerNet implements ClientInterface
 
         $this->logger->write(
             sprintf(
-                "sending request:\n%s",
+                "%s sending request:\n%s",
                 get_class($this),
                 print_r($request, TRUE)
             ),
