@@ -217,7 +217,16 @@ class JSON extends ClientLayerNet implements ClientInterface
      */
     protected function handleError(array $error)
     {
-        $data = isset($error['data']) ? ". " . $error['data'] : '';
+        $data = '';
+        if(isset($error['data'])){
+            $data .=
+                '.' .
+                (
+                    is_string($error['data'])
+                        ? ' ' . $error['data']
+                        : "\n" . var_export($error['data'], TRUE)
+                );
+        }
         $this->logger->write(
             sprintf(
                 "%s: error received:\n%s",
