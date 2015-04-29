@@ -49,12 +49,19 @@ class JSON extends ServerLayer
     protected $request;
 
     /**
+     * @var string
+     */
+    protected $optionsKey;
+
+    /**
      * @param  array  $options  Layer options, support 'envoronment' and 'request' keys
      * @throws InvalidArgumentException
      */
     public function __construct(array $options = array())
     {
         parent::__construct($options);
+
+        $this->optionsKey = str_replace('\\', '/', get_class($this));
 
         if (isset($this->options['request'])) {
             $this->request = $this->options['request'];
@@ -227,23 +234,27 @@ class JSON extends ServerLayer
      */
     protected function onExceptionDuringExec(MethodExecutionException $exception)
     {
-        $this->logger->write(
-            sprintf(
-                "%s::%s(): %s\n%s",
-                get_class($this),
-                __METHOD__,
-                (string)$this->exceptionData,
-                $exception->getTraceAsString()
-            ),
-            Logger::WARNING
+        $details = sprintf(
+            "%s::%s(): %s\n%s",
+            get_class($this),
+            __METHOD__,
+            (string)$this->exceptionData,
+            $exception->getTraceAsString()
         );
+        $this->logger->write($details, Logger::WARNING);
+        $aResponse = array(
+            'error' => array(
+                'code'    => $exception->getCode(),
+                'message' => $exception->getMessage()
+            )
+        );
+        if(
+            !empty($this->options[$this->optionsKey]) &&
+            !empty($this->options[$this->optionsKey]['returnExceptionError'])
+        ){
+            $aResponse['details'] = $details;
+        }
 
-        return
-            array(
-                'error' => array(
-                    'code'    => $exception->getCode(),
-                    'message' => $exception->getMessage()
-                )
-            );
+        return $aResponse;
     }
 }
