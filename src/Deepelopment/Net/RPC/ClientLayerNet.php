@@ -98,8 +98,14 @@ abstract class ClientLayerNet extends ClientLayer
                 ) {
                     $error = $this->transport->getError();
                     throw new RuntimeException(
-                        $error['message'],
-                        $error['code']
+                        sprintf(
+                            "URL: %s, HTTP code: %d, %s (%s)",
+                            $url,
+                            $code,
+                            $error['message'],
+                            $response
+                        ),
+                        $error['code'] ? $error['code'] : $code
                     );
                 }
         }
