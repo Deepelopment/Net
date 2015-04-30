@@ -258,7 +258,7 @@ class JSON extends ServerLayer
                 __METHOD__,
                 (string)$this->exceptionData
             );
-            $aResponse['error']['details'] = $details;
+            $aResponse['error']['data'] = $details;
         }
 
         return $aResponse;
