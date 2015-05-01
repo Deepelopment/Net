@@ -99,7 +99,7 @@ abstract class ClientLayerNet extends ClientLayer
                 "%s reseived response with code %d:\n%s",
                 get_class($this),
                 $code,
-                var_export($response)
+                var_export($response, TRUE)
             )
         );
         switch ($code) {
