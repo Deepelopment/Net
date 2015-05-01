@@ -236,7 +236,6 @@ class JSON extends ClientLayerNet implements ClientInterface
             Logger::WARNING
         );
 
-
         switch ($error['code']) {
             case -32601:
                 throw new BadMethodCallException(

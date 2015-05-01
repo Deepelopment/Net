@@ -93,8 +93,8 @@ abstract class ClientLayerNet extends ClientLayer
             default:
                 if (
                     '' == $response ||
-                    '{' != mb_substr($response, 0, 1, 'ASCII') &&
-                    '}' != mb_substr($response, -1, NULL, 'ASCII')
+                    '{' != substr($response, 0, 1) &&
+                    '}' != substr($response, -1)
                 ) {
                     $error = $this->transport->getError();
                     throw new RuntimeException(
