@@ -78,8 +78,7 @@ class JSON extends ServerLayer
                 "%s received request:\n%s",
                 get_class($this),
                 var_export($this->request, TRUE)
-            ),
-            Logger::NOTICE
+            )
         );
     }
 

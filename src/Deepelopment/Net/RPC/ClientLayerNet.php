@@ -85,8 +85,23 @@ abstract class ClientLayerNet extends ClientLayer
         }
         unset($parsedURL, $auth);
         $this->transport->setOptions($options, $resetOptions);
+        $this->logger->write(
+            sprintf(
+                "%s is sending request to %s",
+                get_class($this),
+                $url
+            )
+        );
         $response = $this->transport->send($url, $request, $options['method']);
         $code = $this->transport->getInfo(CURLINFO_HTTP_CODE);
+        $this->logger->write(
+            sprintf(
+                "%s reseived response with code %d:\n%s",
+                get_class($this),
+                $code,
+                var_export($response)
+            )
+        );
         switch ($code) {
             case 200:
                 break;
