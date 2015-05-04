@@ -61,7 +61,7 @@ class JSON extends ServerLayer
     {
         parent::__construct($options);
 
-        $this->optionsKey = str_replace('\\', '/', get_class($this));
+        $this->optionsKey = get_class($this);
 
         if (isset($this->options['request'])) {
             $this->request = $this->options['request'];
