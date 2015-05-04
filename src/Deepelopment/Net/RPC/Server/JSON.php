@@ -28,7 +28,14 @@ class InvalidJSONRPCFormat extends Exception
  * Remote Procedure Call JSON server layer,
  * see {@see Deepelopment\Net\RPC}.
  *
- * Based on {@see https://github.com/fguillot/JsonRPC}.
+ * Based on {@see https://github.com/fguillot/JsonRPC}.<br /><br />
+ * Pass next options structure to get exception details in response
+ * (debug purpose only):
+ * <code>
+ * 'Deepelopment\\Net\\RPC\\Server\\JSON' => array(
+ *      'returnExceptionError' => TRUE
+ * )
+ * </code>
  *
  * @package Deepelopment/Net/RPC
  * @author  deepeloper ({@see https://github.com/deepeloper})
