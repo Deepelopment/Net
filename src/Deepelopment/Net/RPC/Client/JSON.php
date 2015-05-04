@@ -20,7 +20,21 @@ use Deepelopment\Net\RPC\ClientLayerNet;
  * Remote Procedure Call JSON client layer,
  * see {@see Deepelopment\Net\RPC}.
  *
- * Based on {@see https://github.com/fguillot/JsonRPC}.
+ * Based on {@see https://github.com/fguillot/JsonRPC}.<br /><br />
+ * Example:
+ * <code>
+ * use Deepelopment\Net\RPC;
+ *
+ * $client = RPC::getLayer('JSON', RPC::TYPE_CLIENT, $options);
+ * $client->open('someURL');
+ * $response = $oRPC->execute(
+ *     'command1',
+ *      array(
+ *          'param1' => '...',
+ *          // ...
+ *     )
+ * );
+ * </code>
  *
  * @package Deepelopment/Net/RPC
  * @author  deepeloper ({@see https://github.com/deepeloper})

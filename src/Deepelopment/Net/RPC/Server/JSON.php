@@ -29,6 +29,20 @@ class InvalidJSONRPCFormat extends Exception
  * see {@see Deepelopment\Net\RPC}.
  *
  * Based on {@see https://github.com/fguillot/JsonRPC}.<br /><br />
+ * Example:
+ * <code>
+ * use Deepelopment\Net\RPC;
+ *
+ * $server = RPC::getLayer('JSON', RPC::TYPE_SERVER, $options);
+ * $server->bind('command1', 'callback1');
+ * // ...
+ * $server->execute();
+ *
+ * function callback1(array $params = NULL)
+ * {
+ *     // ...
+ * }
+ * </code>
  * Pass next options structure to get exception details in response
  * (debug purpose only):
  * <code>
