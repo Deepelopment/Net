@@ -182,8 +182,7 @@ class JSON extends ClientLayerNet implements ClientInterface
                 get_class($this),
                 '' === $url ? $this->url : $url,
                 print_r($request, TRUE)
-            ),
-            Logger::NOTICE
+            )
         );
 
         $response = $this->send('', $options, $resetOptions, $url);
@@ -198,14 +197,19 @@ class JSON extends ClientLayerNet implements ClientInterface
                 ),
                 Logger::WARNING
             );
+            throw new RuntimeException(
+                sprintf(
+                    "%s: invalid response received:\n",
+                    get_class($this)
+                )
+            );
         }
         $this->logger->write(
             sprintf(
                 "%s received response:\n%s",
                 get_class($this),
                 print_r($decoded, TRUE)
-            ),
-            Logger::NOTICE
+            )
         );
 
         $this->validateResponse($decoded);

@@ -44,8 +44,24 @@ abstract class ServerLayer extends Layer implements ServerInterface
     protected $request;
 
     /**
+     * @var string
+     * @see self::setMethodExecutionExceptionData()
+     * @see self::executeMethod()
+     * @see self::onExceptionDuringExec()
+     */
+    protected $exceptionMessage;
+
+    /**
+     * @var int
+     * @see self::setMethodExecutionExceptionData()
+     * @see self::executeMethod()
+     * @see self::onExceptionDuringExec()
+     */
+    protected $exceptionCode;
+
+    /**
      * @var mixed
-     * @see self::setExceptionData()
+     * @see self::setMethodExecutionExceptionData()
      * @see self::executeMethod()
      * @see self::onExceptionDuringExec()
      */
@@ -134,14 +150,106 @@ abstract class ServerLayer extends Layer implements ServerInterface
     }
 
     /**
-     * Sets exception data.
+     * Sets method execution exception message/code.
+     *
+     * @param  string $message
+     * @param  int    $code
+     * @return void
+     */
+    public function setMethodExecutionExceptionMessageAndCode($data)
+    {
+        $this->exceptionData = $data;
+    }
+
+    /**
+     * Sets method execution exception data.
      *
      * @param  mixed $data
      * @return void
      */
-    public function setExceptionData($data)
+    public function setMethodExecutionExceptionData($data)
     {
         $this->exceptionData = $data;
+    }
+
+    /**
+     * Validates obligatory parameters presense and types.
+     *
+     * @param  array  $aParams
+     * @param  array  $aObligatory
+     * @param  bool   $checkEmptyness
+     * @param  string $type
+     * @return void
+     */
+    public function validateObligatoryParams(
+        array $aParams,
+        array $aObligatory,
+        $checkEmptyness = FALSE,
+        $type = ''
+    ){
+        $this->logger->write(
+            sprintf("Validatting obligatory params: %s ...", implode(', ', $aObligatory))
+        );
+        if(!is_array($aParams)){
+            $this->sendError("No parameters passed");
+        }
+        foreach($aObligatory as $param){
+            $this->validateObligatoryParam($aParams, $param, $checkEmptyness, $type);
+        }
+    }
+
+    /**
+     * Validates obligatory parameter presense and type.
+     *
+     * @param  array  $aParams         Parameters passed to method
+     * @param  string $param
+     * @param  bool   $checkEmptyness
+     * @param  string $type
+     * @return void
+     */
+    public function validateObligatoryParam(
+        array $aParams,
+        $param,
+        $checkEmptyness = FALSE,
+        $type = ''
+    ){
+        if(
+            !isset($aParams[$param]) ||
+            ($checkEmptyness ? empty($aParams[$param]) : FALSE)
+        ){
+            $this->sendError(
+                sprintf("Missing or empty '%s' obligatory parameter", $param)
+            );
+        }
+        if(
+            '' !== $type &&
+            $type !== gettype($aParams[$param])
+        ){
+            $this->sendError(
+                sprintf(
+                    "Parameter '%s' not a %s\n%s",
+                    $param,
+                    $type,
+                    var_export($aParams[$param], TRUE)
+                )
+            );
+        }
+    }
+
+    /**
+     * Send error data.
+     *
+     * @param  string $message
+     * @return void
+     * @throws MethodExecutionException
+     */
+    public function sendError($message){
+        $this->setMethodExecutionExceptionData($message);
+        $this->logger->write($message, Logger::WARNING);
+        throw new MethodExecutionException(
+            $this->exceptionMessage,
+            $this->exceptionCode
+        );
     }
 
     /**
@@ -169,14 +277,12 @@ abstract class ServerLayer extends Layer implements ServerInterface
         } catch (MethodExecutionException $exception) {
             $response = $this->onExceptionDuringExec($exception);
         }
-
         $this->logger->write(
             sprintf(
                 "%s sending response:\n%s",
                 get_class($this),
                 var_export($response, TRUE)
-            ),
-            Logger::NOTICE
+            )
         );
 
         return $response;

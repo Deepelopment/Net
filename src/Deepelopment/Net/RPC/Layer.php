@@ -38,11 +38,11 @@ abstract class Layer
     {
         $this->options = $options + $this->getDefaultOptions();
         $this->logger = new Logger(
-            isset($this->options['logger'])
-                ? $this->options['logger']
+            isset($this->options['Deepelopment\\Logger'])
+                ? $this->options['Deepelopment\\Logger']
                 : array()
         );
-        unset($this->options['logger']);
+        unset($this->options['Deepelopment\\Logger']);
     }
 
     /**
