@@ -182,7 +182,7 @@ class JSON extends ServerLayer
                 array(
                     'error' => array(
                         'code'    => -32700,
-                        'message' => 'Parse error'
+                        'message' => 'Parse error, invalid JSON format'
                     )
                 )
             );
