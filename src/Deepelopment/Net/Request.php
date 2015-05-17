@@ -168,7 +168,7 @@ class Request
      */
     public function getInfo($option = 0)
     {
-        return curl_getinfo($this->handler, $option);
+        return $option ? curl_getinfo($this->handler, $option) : curl_getinfo($this->handler);
     }
 
     /**
