@@ -12,10 +12,10 @@
     ],
     "require": {
         "php": ">=5.3.1",
-        "deepeloper/Deepelopment": "dev-develop"
+        "Deepelopment/Core": "dev-develop"
     },
     "autoload": {
-        "psr-0": {"Deepelopment\\Net": "src/"},
-        "psr-0": {"Deepelopment": "src/"}
+        "psr-4": {"Deepelopment\\Net": "src/"},
+        "psr-4": {"Deepelopment\\Core": "src/"}
     }
 }

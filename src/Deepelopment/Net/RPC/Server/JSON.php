@@ -12,7 +12,7 @@ use Exception;
 use BadMethodCallException;
 use InvalidArgumentException;
 use Deepelopment\Net\RPC\MethodExecutionException;
-use Deepelopment\Logger;
+use Deepelopment\Core\Logger;
 use Deepelopment\Net\RPC\ServerLayer;
 use Deepelopment\Net\RPC\ServerInterface;
 

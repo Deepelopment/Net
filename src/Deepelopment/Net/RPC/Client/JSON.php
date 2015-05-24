@@ -11,7 +11,7 @@ namespace Deepelopment\Net\RPC\Client;
 use BadMethodCallException;
 use InvalidArgumentException;
 use RuntimeException;
-use Deepelopment\Logger;
+use Deepelopment\Core\Logger;
 use Deepelopment\Net\Request;
 use Deepelopment\Net\RPC\ClientInterface;
 use Deepelopment\Net\RPC\ClientLayerNet;

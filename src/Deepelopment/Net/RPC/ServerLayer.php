@@ -10,7 +10,7 @@ namespace Deepelopment\Net\RPC;
 
 use RuntimeException;
 use BadMethodCallException;
-use Deepelopment\Logger;
+use Deepelopment\Core\Logger;
 use Deepelopment\Net\UnauthorizedAccessException;
 use Deepelopment\Net\IPRestrictionException;
 

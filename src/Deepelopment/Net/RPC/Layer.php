@@ -8,7 +8,7 @@
 
 namespace Deepelopment\Net\RPC;
 
-use Deepelopment\Logger;
+use Deepelopment\Core\Logger;
 
 /**
  * Remote Procedure Call layer abstract class,
