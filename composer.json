@@ -15,7 +15,6 @@
         "Deepelopment/Core": "dev-develop"
     },
     "autoload": {
-        "psr-4": {"Deepelopment\\Net": "src/"},
-        "psr-4": {"Deepelopment\\Core": "src/"}
+        "psr-4": {"Deepelopment\\Net\\": "src/"},
     }
 }
