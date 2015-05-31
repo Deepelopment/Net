@@ -227,7 +227,7 @@ abstract class ServerLayer extends Layer implements ServerInterface
         ){
             $this->sendError(
                 sprintf(
-                    "Parameter '%s' not a %s\n%s",
+                    "Parameter '%s' not a(n) %s\n%s",
                     $param,
                     $type,
                     var_export($aParams[$param], TRUE)
