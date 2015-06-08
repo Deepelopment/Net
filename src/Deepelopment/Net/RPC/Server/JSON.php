@@ -272,8 +272,7 @@ class JSON extends ServerLayer
             !empty($this->options[$this->optionsKey]['returnExceptionError'])
         ){
             $details = sprintf(
-                "%s::%s(): %s",
-                get_class($this),
+                "%s(): %s",
                 __METHOD__,
                 (string)$this->exceptionData
             );
