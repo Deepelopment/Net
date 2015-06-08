@@ -156,9 +156,10 @@ abstract class ServerLayer extends Layer implements ServerInterface
      * @param  int    $code
      * @return void
      */
-    public function setMethodExecutionExceptionMessageAndCode($data)
+    public function setMethodExecutionExceptionMessageAndCode($message, $code = 0)
     {
-        $this->exceptionData = $data;
+        $this->exceptionMessage = $message;
+        $this->exceptionCode    = $code;
     }
 
     /**

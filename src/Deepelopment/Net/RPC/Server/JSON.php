@@ -255,8 +255,7 @@ class JSON extends ServerLayer
     protected function onExceptionDuringExec(MethodExecutionException $exception)
     {
         $details = sprintf(
-            "%s::%s(): %s\n%s",
-            get_class($this),
+            "%s(): %s\n%s",
             __METHOD__,
             (string)$this->exceptionData,
             $exception->getTraceAsString()
