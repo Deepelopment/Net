@@ -154,21 +154,7 @@ class JSON extends ServerLayer
         }
 
         try {
-            if (!is_array($this->request)) {
-                throw new InvalidJSONFormat('Malformed request');
-            }
-            if (
-                !isset($this->request['jsonrpc']) ||
-                !isset($this->request['method']) ||
-                !is_string($this->request['method']) ||
-                $this->request['jsonrpc'] !== self::JSON_RPC_VERSION ||
-                (
-                    isset($this->request['params']) &&
-                    !is_array($this->request['params'])
-                )
-            ) {
-                throw new InvalidJSONRPCFormat('Invalid JSON RPC request');
-            }
+            $this->validateRequest();
 
             $response = $this->executeMethod(
                 $this->request['method'],
@@ -244,6 +230,32 @@ class JSON extends ServerLayer
         $response['id'] = $id;
         echo json_encode($response);
         exit;
+    }
+
+    /**
+     * Validates request.
+     *
+     * @return void
+     * @throws InvalidJSONFormat
+     * @throws InvalidJSONRPCFormat
+     */
+    protected function validateRequest()
+    {
+        if (!is_array($this->request)) {
+            throw new InvalidJSONFormat('Malformed request');
+        }
+        if (
+            !isset($this->request['jsonrpc']) ||
+            !isset($this->request['method']) ||
+            !is_string($this->request['method']) ||
+            $this->request['jsonrpc'] !== self::JSON_RPC_VERSION ||
+            (
+                isset($this->request['params']) &&
+                !is_array($this->request['params'])
+            )
+        ) {
+            throw new InvalidJSONRPCFormat('Invalid JSON RPC request');
+        }
     }
 
     /**
