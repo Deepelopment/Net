@@ -189,20 +189,13 @@ class JSON extends ClientLayerNet implements ClientInterface
 
         $decoded = json_decode($response, TRUE);
         if (!is_array($decoded)) {
-            $this->logger->write(
-                sprintf(
-                    "%s: invalid response received:\n%s",
-                    get_class($this),
-                    var_export($response, TRUE)
-                ),
-                Logger::WARNING
+            $message = sprintf(
+                "%s: invalid response received:\n%s",
+                get_class($this),
+                var_export($response, TRUE)
             );
-            throw new RuntimeException(
-                sprintf(
-                    "%s: invalid response received:\n",
-                    get_class($this)
-                )
-            );
+            $this->logger->write($message, Logger::WARNING);
+            throw new RuntimeException($message);
         }
         $this->logger->write(
             sprintf(
