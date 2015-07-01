@@ -46,6 +46,16 @@ abstract class ClientLayerNet extends ClientLayer
     }
 
     /**
+     * Returns transport object.
+     *
+     * @return \Deepelopment\Net\Request
+     */
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
+    /**
      * Sends request to remote server method.
      *
      * @param  mixed   $request
