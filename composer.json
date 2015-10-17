@@ -1,6 +1,6 @@
 {
     "name": "deepelopment/net",
-    "type": "project",
+    "type": "library",
     "description": "",
     "keywords": [],
     "license": "Unlicence",
